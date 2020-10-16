@@ -1,9 +1,30 @@
-/* add css module styles here (optional) */
-
 .test {
   margin: 2em;
   padding: 0.5em;
   border: 2px solid #000;
   font-size: 2em;
   text-align: center;
+}
+
+.ui-spin {
+  transform: rotate(45deg);
+  animation: uiRotate 1.2s infinite linear;
+}
+
+@keyframes uiRotate {
+  to {
+    transform: rotate(405deg);
+  }
+}
+
+.ui-icon {
+  display: inline-block;
+  width: 100%;
+  line-height: 22px;
+  transition: color 0.3s;
+}
+
+.ui-icon {
+  font-size: 16px;
+  line-height: 22px;
 }

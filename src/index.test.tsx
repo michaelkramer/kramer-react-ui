@@ -1,7 +1,9 @@
-import { ExampleComponent } from '.'
+import classNames from "classnames";
 
-describe('ExampleComponent', () => {
-  it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
-  })
-})
+describe("ExampleComponent", () => {
+  it("is truthy", () => {
+    const a = classNames("something", "anotherthing");
+
+    expect(a).toHaveLength(22);
+  });
+});

@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { ExampleComponent } from 'kramer-react-ui'
+import IconSet from "./IconSet"
 import 'kramer-react-ui/dist/index.css'
 
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+  return <IconSet />
 }
 
 export default App

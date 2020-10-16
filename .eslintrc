@@ -1,22 +1,15 @@
 {
-  "parser": "@typescript-eslint/parser",
+  //"parser": "@typescript-eslint/parser",
+  //"parser": "babel-eslint",
+  "plugins": [
+    "react-hooks",
+    "@michaelkramer/eslint-plugin-facepalm"
+  ],
   "extends": [
-    "standard",
-    "standard-react",
-    "plugin:prettier/recommended",
-    "prettier/standard",
-    "prettier/react",
-    "plugin:@typescript-eslint/eslint-recommended"
+    "react-app"
   ],
   "env": {
     "node": true
-  },
-  "parserOptions": {
-    "ecmaVersion": 2020,
-    "ecmaFeatures": {
-      "legacyDecorators": true,
-      "jsx": true
-    }
   },
   "settings": {
     "react": {
@@ -24,11 +17,63 @@
     }
   },
   "rules": {
+    "react/self-closing-comp": [
+      "error",
+      {
+        "component": true,
+        "html": true
+      }
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "no-console": "warn",
+    "@michaelkramer/facepalm/no-comment-console": "warn",
+    "@michaelkramer/facepalm/no-useless-comments": "warn",
+    "arrow-parens": "error",
+    "eqeqeq": [
+      "error",
+      "always"
+    ],
     "space-before-function-paren": 0,
-    "react/prop-types": 0,
+    "no-multiple-empty-lines": "error",
+    "no-unused-vars": [
+      0,
+      {
+        "argsIgnorePattern": "^_",
+        "ignoreRestSiblings": true
+      }
+    ],
+    "react/prop-types": [
+      0
+    ],
     "react/jsx-handler-names": 0,
     "react/jsx-fragments": 0,
     "react/no-unused-prop-types": 0,
-    "import/export": 0
-  }
+    "import/export": 0,
+    "quotes": [
+      "error",
+      "double",
+      {
+        "avoidEscape": true,
+        "allowTemplateLiterals": true
+      }
+    ],
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "CallExpression[callee.object.name='console'][callee.property.name!=/^(log|warn|error|info|trace)$/]",
+        "message": "Unexpected property on console object was called"
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.ts",
+        "**/*.tsx"
+      ]
+    }
+  ]
 }
