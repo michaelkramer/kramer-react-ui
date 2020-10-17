@@ -2,7 +2,10 @@
 
 > Just my collection of ui component
 
-[![NPM](https://img.shields.io/npm/v/kramer-react-ui.svg)](https://www.npmjs.com/package/kramer-react-ui) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+![npm (scoped)](https://img.shields.io/npm/v/@michaelkramer/kramer-react-ui?style=flat-square)
+![npm](https://img.shields.io/npm/dm/@michaelkramer/kramer-react-ui?style=flat-square)
+
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Demo
 
