@@ -14,13 +14,13 @@
 ## Install
 
 ```bash
-npm install --save kramer-react-ui
+npm install --save @michaelkramer/kramer-react-ui
 ```
 
 or
 
 ```bash
-yarn add kramer-react-ui
+yarn add @michaelkramer/kramer-react-ui
 ```
 
 ## Usage
