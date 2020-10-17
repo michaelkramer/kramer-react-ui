@@ -15,6 +15,7 @@ jobs:
 
       - name: Install and Build
         run: |
+          yarn install
           cd example
           yarn install
           yarn build
