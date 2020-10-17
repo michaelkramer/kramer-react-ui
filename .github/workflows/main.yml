@@ -16,14 +16,14 @@ jobs:
       - name: Install and Build
         run: |
           yarn install
-          cd example
-          yarn install
           yarn build
+          yarn --cwd example install
+          yarn --cwd example build
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@3.6.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: build
+          FOLDER: example/build
           CLEAN: true
