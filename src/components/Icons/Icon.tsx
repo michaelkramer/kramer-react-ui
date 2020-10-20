@@ -1,6 +1,5 @@
 import * as React from "react";
 import classNames from "classnames";
-///import isObject from "lodash/isObject";
 import warning from "../utili/warning";
 import { useInsertStyles } from "../utili/styles";
 

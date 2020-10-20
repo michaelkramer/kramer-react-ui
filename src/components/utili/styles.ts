@@ -14,6 +14,12 @@ export const iconStyles = `
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.uiIcon+span {
+  margin-left: 8px;
+}
+span+.uiIcon {
+  margin-right: 8px;
+}
 .uiIcon > * {
   line-height: 1;
 }

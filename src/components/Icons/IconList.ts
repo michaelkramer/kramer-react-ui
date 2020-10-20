@@ -6,8 +6,8 @@ import * as FC from "react-icons/fc";
 import { IconType } from "react-icons/lib";
 
 export interface $IconObject {
-  theme: IconTheme;
-  component?: IconType;
+  theme: IconTheme | string;
+  component?: IconType | any;
 }
 
 export interface $Icon {
@@ -139,5 +139,6 @@ const IconList: $Icon[] = [
     ],
   },
 ];
+
 
 export default IconList;
