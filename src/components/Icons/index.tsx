@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Icon from "./Icon";
-import { IconTheme, IconThemes } from "./IconTheme";
-import IconList, { $IconObject, $Icon } from "./IconList";
-
-export { IconTheme, IconThemes };
+import { $Icon, $IconObject } from "./IconList";
+import UIProvider from "../UIProvider";
 
 export interface $IconProps {
   theme: any;
@@ -14,26 +12,31 @@ export interface $IconProps {
   style?: object;
 }
 
-const getIcon = ({ theme, name }: $IconProps) => {
-  let iconObj: $IconObject | undefined;
-  const newIcon: $Icon | undefined = IconList.find((item) => {
-    if (item.name === name) {
-      iconObj = item.icons.find((icon) => icon.theme === theme);
-      if (!iconObj) {
-        iconObj = item.icons[0];
-      }
-      return item;
-    }
-    return undefined;
-  });
-  if (newIcon && iconObj && iconObj.component) {
-    return <iconObj.component />;
-  }
-  return null;
-};
-
 const Icons = (props: $IconProps) => {
-  const icon = getIcon(props);
-  return icon && <Icon {...props}>{icon}</Icon >;
+  const [icon, setIcon] = useState<JSX.Element | undefined>(<span className="init" />);
+  const { iconSet } = useContext<{ iconSet: $Icon[] }>(UIProvider.context);
+
+  useEffect(() => {
+    const { theme, name } = props;
+    let iconObj: $IconObject | undefined;
+
+    if (iconSet) {
+      const newIcon: $Icon | undefined = iconSet.find((item: $Icon) => item.name === name);
+      if (newIcon) {
+        iconObj = newIcon.icons.find((icon) => icon.theme === theme);
+        if (!iconObj) {
+          iconObj = newIcon.icons[0];
+        }
+        setIcon(iconObj.component);
+      }
+
+    }
+    return () => {
+
+    };
+  }, [iconSet, props]);
+
+  return <div>{icon && <Icon {...props}>{icon}</Icon>}</div>;
+
 };
 export default Icons;

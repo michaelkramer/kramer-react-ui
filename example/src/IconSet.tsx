@@ -1,14 +1,15 @@
-import React, { useState } from "react";
-import { Icons, IconTheme, IconList } from "kramer-react-ui";
-
+import React, { useState, useContext } from "react";
+import { UIProvider, Icons } from "@michaelkramer/kramer-react-ui";
+import { $Icon } from "@michaelkramer/kramer-react-ui/dist/components/Icons/IconList";
 
 
 
 const IconSet = () => {
   const [searchName, setSearchName] = useState<string>("");
+  const { iconSet } = useContext<{ iconSet: $Icon[] }>(UIProvider.context);
 
   const FetchIcon = ({ theme, name }: { theme: string, name: string }) => {
-    return (<li><Icons theme={theme} name={name} /><div>{name}</div></li>)
+    return (<li><Icons theme={theme} name={name} /><div>{ThemeTitle(theme)}</div></li>)
   }
 
   const ThemeTitle = (title: string) => {
@@ -16,39 +17,34 @@ const IconSet = () => {
     return result.charAt(0).toUpperCase() + result.slice(1);
   }
 
-  const DisplayIconSet = ({ theme }: { theme: string, index: number }) => {
-    return <div className="themeSet">
-      <h3>{ThemeTitle(theme)}</h3>
-      <ul className="iconSet">
-        {IconList.map((x, index) => {
-          if (searchName.length > 1) {
-            const pattern = new RegExp(`${searchName}`, "i");
-            if (pattern.test(x.name)) {
-              return <FetchIcon {...{ theme, name: x.name }} key={index} />
-            }
-            return null;
-          } else {
-            return <FetchIcon {...{ theme, name: x.name }} key={index} />
-          }
-        })}
-      </ul>
-    </div>
+  const DisplayIconSet = ({ item }: { item: $Icon }) => {
+    return (<div className="themeSet"><h3>{ThemeTitle(item.name)}</h3><ul className="iconSet">
+      {item.icons.map((icon, idx: number) => {
+        return <FetchIcon {...{ theme: icon.theme, name: item.name }} key={idx} />
+      })}
+    </ul></div>);
   }
+
+  const pattern = new RegExp(`${searchName}`, "i");
+  const list = searchName.length > 1 ? iconSet.filter((x: any) => pattern.test(x.name)) : iconSet;
 
   return (
     <div>
       <h2>Icon Sets</h2>
       <div className="inputForm"><label>Search: </label> <input type="text" onChange={(e) => setSearchName(e.target.value)} /></div>
       <div className="list">
-        {Object.values(IconTheme).map((theme, idx) => (<DisplayIconSet {...{ theme, index: idx }} key={idx} />
-        ))}
-      </div>
-    </div>
+        {
+          list.map((item: $Icon, index: number) => {
+            return <DisplayIconSet key={index} item={item} />
+          })
+        }
+      </div >
+    </div >
   );
 };
 
 
 export default IconSet;
 
-IconList.map((x) => x.name)
+//IconList.map((x) => x.name)
 

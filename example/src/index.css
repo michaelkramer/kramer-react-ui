@@ -38,31 +38,43 @@ h3 {
 }
 
 .list {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.themeSet {
-  flex: 2 0;
-  border-right: 1px solid #ccc;
-}
-.themeSet:last-child {
-  border-right: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 25%);
 }
 
 .themeSet h3 {
   text-align: center;
-  flex: 0 0 100%;
 }
 
 .iconSet {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 50%);
+}
+
+.list {
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+}
+
+.themeSet {
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+/*
+.themeSet h3 {
+  text-align: center;
+  flex: 0 0 100%;
+}
+*/
+.iconSet {
+  /* display: flex;
+  flex-wrap: wrap; */
+  padding: 0;
 }
 
 .iconSet li {
-  flex: 1 0 25%;
-  flex-direction: column;
+  /* flex: 1 0 26%;
+  flex-direction: column; */
   list-style: none;
   padding: 1em;
   text-align: center;
