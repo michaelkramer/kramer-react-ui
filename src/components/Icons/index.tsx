@@ -36,7 +36,7 @@ const Icons = (props: $IconProps) => {
     };
   }, [iconSet, props]);
 
-  return <div>{icon && <Icon {...props}>{icon}</Icon>}</div>;
+  return icon && <Icon {...props}>{icon}</Icon>;
 
 };
 export default Icons;
