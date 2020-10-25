@@ -13,7 +13,7 @@ export interface $IconProps {
 }
 
 const Icons = (props: $IconProps) => {
-  const [icon, setIcon] = useState<JSX.Element | undefined>(<span className="init" />);
+  const [icon, setIcon] = useState<JSX.Element | null>(null);
   const { iconSet } = useContext<{ iconSet: $Icon[] }>(UIProvider.context);
 
   useEffect(() => {

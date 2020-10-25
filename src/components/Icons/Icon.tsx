@@ -19,13 +19,11 @@ export interface CustomIconComponentProps {
 
 export interface IconComponentProps extends IconBaseProps {
   viewBox?: string;
-  component?: React.ComponentType<
-    CustomIconComponentProps | React.SVGProps<SVGSVGElement>
-  >;
+  component?: React.ComponentType<CustomIconComponentProps | React.SVGProps<SVGSVGElement>>;
   ariaLabel?: React.AriaAttributes["aria-label"];
 }
 
-const svgBaseProps = {
+export const svgBaseProps = {
   width: "1em",
   height: "1em",
   fill: "currentColor",
@@ -33,96 +31,103 @@ const svgBaseProps = {
   focusable: "false",
 };
 
-const Icon = React.forwardRef<HTMLSpanElement, IconComponentProps>(
-  (props, ref) => {
-    const {
-      // affect outter <i>...</i>
-      className,
+const Icon = React.forwardRef<HTMLSpanElement, IconComponentProps>((props, ref) => {
+  const {
+    // affect outter <i>...</i>
+    className,
 
-      // affect inner <svg>...</svg>
-      component: Component,
-      viewBox,
-      spin,
-      rotate,
+    // affect inner <svg>...</svg>
+    component: Component,
+    viewBox,
+    spin,
+    rotate,
 
-      tabIndex,
-      onClick,
+    tabIndex,
+    onClick,
 
-      // children
-      children,
-      ...restProps
-    } = props;
+    // children
+    children,
+    ...restProps
+  } = props;
 
-    warning(
-      Boolean(Component || children),
-      "Should have `component` prop or `children`."
-    );
+  warning(
+    Boolean(Component || children),
+    "Should have `component` prop or `children`.",
+  );
 
-    useInsertStyles();
+  useInsertStyles();
 
-    const classString = classNames("uiIcon", !!spin ? "uiIcon-spin" : "", className);
+  const classString = classNames(
+    "anticon",
+    className,
+  );
 
-    const svgClassString = classNames({
-      "uiIcon-spin": !!spin,
-    });
+  const svgClassString = classNames({
+    "anticon-spin": !!spin,
+  });
 
-    const svgStyle = rotate
-      ? {
-        msTransform: `rotate(${rotate}deg)`,
-        transform: `rotate(${rotate}deg)`,
-      }
-      : undefined;
-
-    const innerSvgProps: CustomIconComponentProps = {
-      ...svgBaseProps,
-      className: svgClassString,
-      style: svgStyle,
-      viewBox,
-    };
-
-    if (!viewBox) {
-      delete innerSvgProps.viewBox;
+  const svgStyle = rotate
+    ? {
+      msTransform: `rotate(${rotate}deg)`,
+      transform: `rotate(${rotate}deg)`,
     }
+    : undefined;
 
-    // component > children
-    const renderInnerNode = () => {
-      if (Component) {
-        return <Component {...innerSvgProps}>{children}</Component>;
-      }
+  const innerSvgProps: CustomIconComponentProps = {
+    ...svgBaseProps,
+    className: svgClassString,
+    style: svgStyle,
+    viewBox,
+  };
 
-      if (children) {
-        warning(
-          Boolean(viewBox) || React.Children.count(children) === 1,
-          "Make sure that you provide correct `viewBox`" +
-          " prop (default `0 0 1024 1024`) to the icon."
-        );
-
-        return <React.Fragment>{children}</React.Fragment>;
-      }
-
-      return null;
-    };
-
-    let iconTabIndex = tabIndex;
-    if (iconTabIndex === undefined && onClick) {
-      iconTabIndex = -1;
-    }
-
-    return (
-      <span
-        role="img"
-        {...restProps}
-        ref={ref}
-        tabIndex={iconTabIndex}
-        onClick={onClick}
-        className={classString}
-      >
-        {renderInnerNode()}
-      </span>
-    );
+  if (!viewBox) {
+    delete innerSvgProps.viewBox;
   }
-);
 
-Icon.displayName = "ui-Icon";
+  // component > children
+  const renderInnerNode = () => {
+    if (Component) {
+      return <Component {...innerSvgProps}>{children}</Component>;
+    }
+
+    if (children) {
+      warning(
+        Boolean(viewBox) ||
+        (React.Children.count(children) === 1 &&
+          React.isValidElement(children) &&
+          React.Children.only(children).type === "use"),
+        "Make sure that you provide correct `viewBox` prop (default `0 0 1024 1024`) to the icon.",
+      );
+
+      return (
+        <svg {...innerSvgProps} viewBox={viewBox}>
+          {children}
+        </svg>
+      );
+    }
+
+    return null;
+  };
+
+  let iconTabIndex = tabIndex;
+  if (iconTabIndex === undefined && onClick) {
+    iconTabIndex = -1;
+  }
+
+  return (
+    <span
+      role="img"
+      {...restProps}
+      ref={ref}
+      tabIndex={iconTabIndex}
+      onClick={onClick}
+      className={classString}
+    >
+      {renderInnerNode()}
+    </span>
+  );
+});
+
+Icon.displayName = "ui-icon";
 
 export default Icon;
